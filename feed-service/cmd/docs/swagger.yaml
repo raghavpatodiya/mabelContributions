@@ -1,0 +1,78 @@
+basePath: /api/v1
+definitions:
+  models.PinBoard:
+    properties:
+      board_id:
+        type: string
+      board_name:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      is_deleted:
+        type: boolean
+      is_public:
+        type: boolean
+      is_updated:
+        type: boolean
+      likes_count:
+        type: integer
+      share_count:
+        type: integer
+      updated_at:
+        type: string
+      username:
+        type: string
+    required:
+    - board_id
+    - board_name
+    type: object
+info:
+  contact: {}
+  title: Feed API documentation
+  version: 1.0.0
+paths:
+  /hello/hello_world:
+    get:
+      description: get if server is up
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+      security:
+      - BearerAuth: []
+      summary: Greets with Hello World
+      tags:
+      - Hello World
+  /pinboards/:
+    post:
+      consumes:
+      - application/json
+      description: Create new pin board
+      parameters:
+      - description: Pin Board Data
+        in: body
+        name: pinboard
+        required: true
+        schema:
+          $ref: '#/definitions/models.PinBoard'
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Create new pin board for the user
+      tags:
+      - Pin Boards
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
